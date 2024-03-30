@@ -20,15 +20,15 @@ export const PokemonCard = ({ pokemon }: Props) => {
         <Image
             key={ pokemon.id } //Este key es impiortante siempre ponerlo, porque sino dara error
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ pokemon.id }.svg`}
-            width={100}
-            height={100}
+            width={200}
+            height={150}
             alt={ pokemon.name  }
             priority={false}  // al poner en false se cargaran las imagenes bajo demanda
           />
           
           <p className="pt-2 text-lg font-semibold text-gray-50 capitalize">{ name }</p>
           <div className="mt-5">
-            <Link href={`dashboard/pokemons/${ id }`} className="border rounded-full py-2 px-4 text-xs font-semibold text-gray-100">
+            <Link href={`pokemon/${ id }`} className="border rounded-full py-2 px-4 text-xs font-semibold text-gray-100">
               Más información
             </Link>
           </div>
