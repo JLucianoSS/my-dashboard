@@ -1,4 +1,4 @@
-import { PokemonsResponse, SimplePokemon } from "@/app/pokemons";
+import { PokemonGrid, PokemonsResponse, SimplePokemon } from "@/app/pokemons";
 import Image from "next/image";
 
 
@@ -20,22 +20,8 @@ export default async function PokemonsPage() {
 
   return (
     <div className="flex flex-col">
-
-      <div className="flex flex-wrap gap-10 justify-center items-center">
-       
-      {
-        pokemons.map( pokemon => ( 
-        <Image
-          key={ pokemon.id } //Este key es impiortante siempre ponerlo, porque sino dara error
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ pokemon.id }.svg`}
-          width={100}
-          height={100}
-          alt={ pokemon.name  }
-        />))
-      }
-      
-
-      </div>
+      <span className="text-5xl my-2">Listado de Pókemons <small>estático</small></span>
+        <PokemonGrid pokemons={pokemons}/>
     </div>
   );
 }
