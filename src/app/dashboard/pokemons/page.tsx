@@ -1,4 +1,5 @@
 import { PokemonsResponse, SimplePokemon } from "@/app/pokemons";
+import Image from "next/image";
 
 
 const getPokemons = async(limit = 20 , offset = 0):Promise<SimplePokemon[]> => {
@@ -18,8 +19,23 @@ export default async function PokemonsPage() {
   const pokemons = await getPokemons(151);
 
   return (
-    <div>
-      { JSON.stringify(pokemons) }
+    <div className="flex flex-col">
+
+      <div className="flex flex-wrap gap-10 justify-center items-center">
+       
+      {
+        pokemons.map( pokemon => ( 
+        <Image
+          key={ pokemon.id } //Este key es impiortante siempre ponerlo, porque sino dara error
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${ pokemon.id }.svg`}
+          width={100}
+          height={100}
+          alt={ pokemon.name  }
+        />))
+      }
+      
+
+      </div>
     </div>
   );
 }
