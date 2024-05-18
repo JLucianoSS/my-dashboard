@@ -8,6 +8,27 @@ interface Props {
     params: { id: string }
 }
 
+/* ESTO SOLO SE VA A AJECUTAR EN BUILDTIME
+  AQUI SE VAN A GENERAR TODOS LOS 151 POKEMONS
+  (PRIMERA GENERACION) DE ESA MANERA YA SE TENDRÁ
+  GENERADO ESE CONTENIDO */
+export async function generateStaticParams() {
+
+  const static151Pokemons = Array.from({ length:151 }).map( (v, i) => `${i + 1}` );
+  return static151Pokemons.map( id => ({
+    id:id
+  }));
+
+  // return [
+  //   { id: '1' },
+  //   { id: '2' },
+  //   { id: '3' },
+  //   { id: '4' },
+  //   { id: '5' },
+  //   { id: '6' },
+  // ]
+}
+
 // Metadata para el SEO
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
@@ -33,7 +54,11 @@ const getPokemon = async(id: string):Promise<Pokemon> => {
 
     try {
         const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${ id }`, {
-            cache: 'force-cache' //TODO: cambiar esto en un futuro
+            // cache: 'force-cache',
+            next: {
+              revalidate: 60 * 60 * 30 * 6
+            }
+            
         }).then( res => res.json() );
         
         console.log('Se cargó: ', pokemon.name)
